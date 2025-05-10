@@ -16,6 +16,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
+				"GHCP_stuff/GameController.swift 2025-05-10 at 9.56.47 AM.png",
 			);
 			target = 579DC0342DB5CDC5006A1748 /* XenoStrike macOS */;
 		};
@@ -23,6 +24,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
+				"GHCP_stuff/GameController.swift 2025-05-10 at 9.56.47 AM.png",
 			);
 			target = 579DC0132DB5CDC5006A1748 /* XenoStrike iOS */;
 		};

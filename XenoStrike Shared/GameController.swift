@@ -10,6 +10,7 @@ typealias SCNColor = UIColor
 class GameController: NSObject, SCNSceneRendererDelegate {
 
     @MainActor var keysPressed: Set<UInt16> = []
+    private var previousUpdateTime: TimeInterval? // Added property to track previous update time
 
     let scene: SCNScene
     let sceneRenderer: SCNSceneRenderer
@@ -23,6 +24,7 @@ class GameController: NSObject, SCNSceneRendererDelegate {
             for child in groundScene.rootNode.childNodes {
                 scene.rootNode.addChildNode(child)
             }
+            print("✅ Ground scene loaded with \(groundScene.rootNode.childNodes.count) child nodes")
         }
 
         shipNode = scene.rootNode.childNode(withName: "ship", recursively: true)
@@ -41,8 +43,8 @@ class GameController: NSObject, SCNSceneRendererDelegate {
 
     nonisolated func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         Task { @MainActor in
-            let deltaTime = time - (renderer.previousUpdateTime ?? time)
-            renderer.previousUpdateTime = time
+            let deltaTime = time - (previousUpdateTime ?? time) // Calculate deltaTime
+            previousUpdateTime = time // Update the stored time
             self.performShipActions(deltaTime: deltaTime)
         }
     }
@@ -54,8 +56,8 @@ class GameController: NSObject, SCNSceneRendererDelegate {
         var movement = SCNVector3Zero
         var rotationY: CGFloat = 0.0
 
-        let moveSpeed: CGFloat = 0.2 * CGFloat(deltaTime)
-        let rotationSpeed: CGFloat = 0.05 * CGFloat(deltaTime)
+        let moveSpeed: CGFloat = 2.0 * CGFloat(deltaTime) // Increased move speed
+        let rotationSpeed: CGFloat = 0.1 * CGFloat(deltaTime) // Increased rotation speed
 
         if keysPressed.contains(13) { // W
             movement.z -= moveSpeed
@@ -70,18 +72,32 @@ class GameController: NSObject, SCNSceneRendererDelegate {
             rotationY -= rotationSpeed
         }
 
-        if movement != SCNVector3Zero {
+        if movement != SCNVector3Zero { // Custom != operator for SCNVector3
             let direction = ship.presentation.convertVector(movement, to: nil)
             ship.position += direction
+            print("🚀 Ship moved to position: \(ship.position)")
         }
 
         if rotationY != 0 {
             ship.eulerAngles.y += rotationY
+            print("🔄 Ship rotated to angle: \(ship.eulerAngles.y)")
         }
     }
 }
 
-// MARK: - Vector math helpers
+// MARK: - SCNVector3 Comparison Helpers
+
+extension SCNVector3 {
+    static func == (lhs: SCNVector3, rhs: SCNVector3) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z
+    }
+
+    static func != (lhs: SCNVector3, rhs: SCNVector3) -> Bool {
+        return !(lhs == rhs)
+    }
+}
+
+// MARK: - Vector Math Helpers
 
 func + (lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
     return SCNVector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
