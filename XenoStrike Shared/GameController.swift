@@ -10,7 +10,7 @@ typealias SCNColor = UIColor
 class GameController: NSObject, SCNSceneRendererDelegate {
 
     @MainActor var keysPressed: Set<UInt16> = []
-    private var previousUpdateTime: TimeInterval? // Added property to track previous update time
+    private var previousUpdateTime: TimeInterval?
 
     let scene: SCNScene
     let sceneRenderer: SCNSceneRenderer
@@ -52,40 +52,60 @@ class GameController: NSObject, SCNSceneRendererDelegate {
 
     @MainActor
     func performShipActions(deltaTime: TimeInterval) {
-        guard let ship = shipNode else { return }
+        guard let ship = shipNode else {
+            print("❌ Ship node is nil")
+            return
+        }
+
+        print("⏱️ Performing ship actions, keysPressed: \(keysPressed)")
 
         var movement = SCNVector3Zero
         var rotationY: CGFloat = 0.0
 
-        let moveSpeed: CGFloat = 2.0 * CGFloat(deltaTime) // Increased move speed
-        let rotationSpeed: CGFloat = 0.1 * CGFloat(deltaTime) // Increased rotation speed
+        let moveSpeed: CGFloat = 20.0 * CGFloat(deltaTime) // Temporarily increased speed
+        let rotationSpeed: CGFloat = 5.0 * CGFloat(deltaTime) // Temporarily increased rotation
 
         if keysPressed.contains(13) { // W
             movement.z -= moveSpeed
-            print("⬆️ Moving forward, movement: \(movement)")
-        }
-        if keysPressed.contains(1) { // S
-            movement.z += moveSpeed
-            print("⬇️ Moving backward, movement: \(movement)")
-        }
-        if keysPressed.contains(0) { // A
-            rotationY += rotationSpeed
-            print("⬅️ Rotating left, rotationY: \(rotationY)")
-        }
-        if keysPressed.contains(2) { // D
-            rotationY -= rotationSpeed
-            print("➡️ Rotating right, rotationY: \(rotationY)")
+            print("⬆️ Moving forward, movement: \(movement), keysPressed: \(keysPressed)")
+        } else {
+            print("❌ W key not detected in keysPressed: \(keysPressed)")
         }
 
-        if movement != SCNVector3Zero { // Custom != operator for SCNVector3
+        if keysPressed.contains(1) { // S
+            movement.z += moveSpeed
+            print("⬇️ Moving backward, movement: \(movement), keysPressed: \(keysPressed)")
+        } else {
+            print("❌ S key not detected in keysPressed: \(keysPressed)")
+        }
+
+        if keysPressed.contains(0) { // A
+            rotationY += rotationSpeed
+            print("⬅️ Rotating left, rotationY: \(rotationY), keysPressed: \(keysPressed)")
+        } else {
+            print("❌ A key not detected in keysPressed: \(keysPressed)")
+        }
+
+        if keysPressed.contains(2) { // D
+            rotationY -= rotationSpeed
+            print("➡️ Rotating right, rotationY: \(rotationY), keysPressed: \(keysPressed)")
+        } else {
+            print("❌ D key not detected in keysPressed: \(keysPressed)")
+        }
+
+        if movement != SCNVector3Zero {
             let direction = ship.presentation.convertVector(movement, to: nil)
             ship.position += direction
             print("🚀 Ship moved to position: \(ship.position)")
+        } else {
+            print("❌ No movement detected")
         }
 
         if rotationY != 0 {
             ship.eulerAngles.y += rotationY
             print("🔄 Ship rotated to angle: \(ship.eulerAngles.y)")
+        } else {
+            print("❌ No rotation detected")
         }
     }
 }

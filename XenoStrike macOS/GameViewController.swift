@@ -27,6 +27,8 @@ class GameViewController: NSViewController {
 
         let clickGesture = NSClickGestureRecognizer(target: self, action: #selector(handleClick(_:)))
         gameView.gestureRecognizers.insert(clickGesture, at: 0)
+
+        //print("🎥 Renderer delegate: \(gameView.delegate ?? "None")")
     }
 
     override func viewDidAppear() {
@@ -53,8 +55,10 @@ class GameViewController: NSViewController {
         Task { @MainActor in
             if isDown {
                 gameController.keysPressed.insert(keyCode)
+                print("🔑 Key pressed: \(keyCode), keysPressed: \(gameController.keysPressed)")
             } else {
                 gameController.keysPressed.remove(keyCode)
+                print("🔑 Key released: \(keyCode), keysPressed: \(gameController.keysPressed)")
             }
         }
     }
@@ -62,4 +66,3 @@ class GameViewController: NSViewController {
     override var acceptsFirstResponder: Bool { true }
     override func becomeFirstResponder() -> Bool { true }
 }
-
