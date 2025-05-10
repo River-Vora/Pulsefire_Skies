@@ -11,6 +11,23 @@
 		579DC0352DB5CDC5006A1748 /* Xeno Strike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Xeno Strike.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		571A2DC92DCF7C280041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike macOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
+			);
+			target = 579DC0342DB5CDC5006A1748 /* XenoStrike macOS */;
+		};
+		571A2DCA2DCF7C290041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike iOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
+			);
+			target = 579DC0132DB5CDC5006A1748 /* XenoStrike iOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5741DE392DBC3B8D00CFDBA2 /* XenoStrike iOS */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -24,6 +41,10 @@
 		};
 		5741DE512DBC3BA400CFDBA2 /* XenoStrike Shared */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				571A2DCA2DCF7C290041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike iOS" target */,
+				571A2DC92DCF7C280041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike macOS" target */,
+			);
 			path = "XenoStrike Shared";
 			sourceTree = "<group>";
 		};
