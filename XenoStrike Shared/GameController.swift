@@ -43,8 +43,9 @@ class GameController: NSObject, SCNSceneRendererDelegate {
 
     nonisolated func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         Task { @MainActor in
-            let deltaTime = time - (previousUpdateTime ?? time) // Calculate deltaTime
-            previousUpdateTime = time // Update the stored time
+            let deltaTime = time - (previousUpdateTime ?? time)
+            previousUpdateTime = time
+            print("⏱️ deltaTime: \(deltaTime)")
             self.performShipActions(deltaTime: deltaTime)
         }
     }
@@ -61,15 +62,19 @@ class GameController: NSObject, SCNSceneRendererDelegate {
 
         if keysPressed.contains(13) { // W
             movement.z -= moveSpeed
+            print("⬆️ Moving forward, movement: \(movement)")
         }
         if keysPressed.contains(1) { // S
             movement.z += moveSpeed
+            print("⬇️ Moving backward, movement: \(movement)")
         }
         if keysPressed.contains(0) { // A
             rotationY += rotationSpeed
+            print("⬅️ Rotating left, rotationY: \(rotationY)")
         }
         if keysPressed.contains(2) { // D
             rotationY -= rotationSpeed
+            print("➡️ Rotating right, rotationY: \(rotationY)")
         }
 
         if movement != SCNVector3Zero { // Custom != operator for SCNVector3
