@@ -15,6 +15,7 @@
 		571A2DC92DCF7C280041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike macOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				console_output.txt,
 				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
 				"GHCP_stuff/GameController.swift 2025-05-10 at 9.56.47 AM.png",
 			);
@@ -23,6 +24,7 @@
 		571A2DCA2DCF7C290041A59D /* Exceptions for "XenoStrike Shared" folder in "XenoStrike iOS" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				console_output.txt,
 				"GHCP_stuff/GameController.swift 2025-05-10 at 8.19.36 AM.png",
 				"GHCP_stuff/GameController.swift 2025-05-10 at 9.56.47 AM.png",
 			);
